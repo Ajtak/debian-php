@@ -1,4 +1,4 @@
-FROM minidebian:raw
+FROM debian:latest
  
 LABEL description="MiniDebian PHP 7.1"
 MAINTAINER Jakub F <Ajtak.jakub@gmail.com>
