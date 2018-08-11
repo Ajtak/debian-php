@@ -3,12 +3,16 @@ FROM debian:latest
 LABEL description="MiniDebian PHP 7.1"
 MAINTAINER Jakub F <Ajtak.jakub@gmail.com>
 
+
+ENV APACHE_LOG_DIR /var/log-apache
+
+
 RUN apt update
 RUN apt-get install -y apt-transport-https lsb-release ca-certificates wget
 RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list	
 RUN apt-get update	
-RUN apt-get install -y php7.1
+RUN apt-get install -y php7.1 php7.1-intl php7.1-mbstring php7.1-gd php7.1-mysql php7.1-pdo
 
 RUN service apache2 start
 EXPOSE 80
@@ -16,8 +20,7 @@ EXPOSE 80
 WORKDIR /var/www/html
 
 VOLUME /var/www/html
-VOLUME /var/log
+VOLUME /var/log-apache
 
-CMD /usr/sbin/apache2ctl -D FOREGROUND
-
-CMD ["/bin/bash"]
+ENTRYPOINT ["/usr/sbin/apache2ctl"]
+CMD ["-D", "FOREGROUND"]
