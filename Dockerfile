@@ -14,10 +14,11 @@ RUN service apache2 start
 RUN update-rc.d apache2 defaults
 
 
-EXPOSE 80:8080
+EXPOSE 80
 
 WORKDIR /var/www/html
 
 VOLUME /var/www/html
+VOLUME /var/logs
 
 CMD ["/bin/bash"]
