@@ -1,4 +1,4 @@
- FROM debian:latest
+FROM debian:latest
  
 LABEL description="MiniDebian PHP 7.1"
 MAINTAINER Jakub F <Ajtak.jakub@gmail.com>
@@ -13,6 +13,8 @@ RUN apt-get install -y php7.1
 RUN service apache2 start
 RUN systemctl start apache2.service
 
+
+EXPOSE 80:8080
 
 WORKDIR /var/www/html
 
