@@ -10,6 +10,9 @@ RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt
 RUN apt-get update	
 RUN apt-get install -y php7.1
 
+RUN service apache2 start
+RUN systemctl start apache2.service
+
 
 WORKDIR /var/www/html
 
