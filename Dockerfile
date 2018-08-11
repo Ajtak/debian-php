@@ -11,7 +11,7 @@ RUN apt-get update
 RUN apt-get install -y php7.1
 
 RUN service apache2 start
-RUN systemctl start apache2.service
+RUN update-rc.d apache2 defaults
 
 
 EXPOSE 80:8080
