@@ -4,7 +4,6 @@ LABEL description="MiniDebian PHP 7.1"
 MAINTAINER Jakub F <Ajtak.jakub@gmail.com>
 
 
-ENV APACHE_LOG_DIR /var/log-apache
 
 
 RUN apt update
@@ -12,9 +11,9 @@ RUN apt-get install -y apt-transport-https lsb-release ca-certificates wget
 RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list	
 RUN apt-get update	
-RUN apt-get install -y php7.1 php7.1-intl php7.1-mbstring php7.1-gd php7.1-mysql php7.1-pdo
+RUN apt-get install -y php7.1 php7.1-intl php7.1-mbstring php7.1-gd php7.1-mysql php7.1-pdo 
+RUN apt-get clean
 
-RUN service apache2 start
 EXPOSE 80
 
 WORKDIR /var/www/html
@@ -22,5 +21,9 @@ WORKDIR /var/www/html
 VOLUME /var/www/html
 VOLUME /var/log-apache
 
-ENTRYPOINT ["/usr/sbin/apache2ctl"]
-CMD ["-D", "FOREGROUND"]
+ADD 000-default.conf /etc/apache2/sites-available/000-default.conf
+ADD start.sh /bootstrap/start.sh
+RUN chmod 755 /bootstrap/start.sh && chown -R www-data:www-data /var/www/html
+
+EXPOSE 80
+ENTRYPOINT ["/bootstrap/start.sh"]
