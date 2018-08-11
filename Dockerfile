@@ -16,7 +16,7 @@ EXPOSE 80
 WORKDIR /var/www/html
 
 VOLUME /var/www/html
-VOLUME /var/logs
+VOLUME /var/log
 
 CMD /usr/sbin/apache2ctl -D FOREGROUND
 
