@@ -11,14 +11,13 @@ RUN apt-get update
 RUN apt-get install -y php7.1
 
 RUN service apache2 start
-RUN update-rc.d apache2 defaults
-
-
 EXPOSE 80
 
 WORKDIR /var/www/html
 
 VOLUME /var/www/html
 VOLUME /var/logs
+
+CMD /usr/sbin/apache2ctl -D FOREGROUND
 
 CMD ["/bin/bash"]
