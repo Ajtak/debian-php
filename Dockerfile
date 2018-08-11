@@ -1,6 +1,6 @@
 FROM debian:latest
  
-LABEL description="MiniDebian PHP 7.1"
+LABEL description="Debian PHP 7.1"
 MAINTAINER Jakub F <Ajtak.jakub@gmail.com>
 
 RUN apt update
